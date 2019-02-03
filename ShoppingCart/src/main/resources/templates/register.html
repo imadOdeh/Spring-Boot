@@ -1,0 +1,52 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+    <head>
+        <title>Register</title>
+    </head>
+    <body>
+        <!-- Include _menu.html -->
+    <th:block th:include="/_menu"></th:block>
+    <div style="padding: 20px; color:blue;">
+        <h2><span th:utext="${message}"></span></h2>
+    </div>
+    <div style="padding: 20px;">
+        <h1>Register</h1>
+
+        <!-- /login?error=true -->
+        <div th:if="${#request.getParameter('error') == 'true'}"
+             style="color:red;margin:10px 0px;">
+            Login Failed!!!<br />
+            Reason :
+            <span th:if="${#session!= null and #session.getAttribute('SPRING_SECURITY_LAST_EXCEPTION') != null}"
+                  th:utext="${#session.getAttribute('SPRING_SECURITY_LAST_EXCEPTION').message}">
+                Static summary
+            </span>
+
+        </div>
+        <div class="col-md-8">
+            <h3>Enter user name and password:</h3>
+            <form action="#" th:action="@{/register}" th:object="${register}"  method='POST'>
+                <table>
+                    <tr>
+                        <td>User:</td>
+                        <td><input type='text' th:field="*{username}" class="form-control"></td>
+                        <td th:if="${#fields.hasErrors('username')}" th:errors="*{username}">User Name Error</td>
+                    </tr>
+                    <tr>
+                        <td>Password:</td>
+                        <td><input type='password' th:field="*{password}" class="form-control"/></td>
+                        <td th:if="${#fields.hasErrors('password')}" th:errors="*{password}">Password Error</td>
+                    </tr>
+                    <tr>
+                        <td>Repeat Password:</td>
+                        <td><input type='password' th:field="*{repeate_password}" class="form-control"/></td>
+                    </tr>
+                    <tr>
+                        <td><input type="submit" value="Register" class="btn-primary" /></td>
+                    </tr>
+                </table>
+            </form> 
+        </div>
+    </div>
+</body>
+</html>
